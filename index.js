@@ -93,23 +93,21 @@ const submitCode = async (code, userId, msg) => {
 
     selection = null;
   } catch (error) {
-    console.log(error);
-    if (error.response.status === 404) {
+    try {
       const err = await axios.get(
         `${endpoint}/submissions/${submissionID}/error?access_token=${access_token}`,
       );
-
       const embed = new MessageEmbed()
         .setTitle("Error!")
         .setColor("RED")
         .addFields({ name: "Message", value: err.data });
       const user = await client.users.fetch(userId);
       await user.send({ embeds: [embed] });
-    } else if (error.response.data.error_code === 1101) {
+    } catch (error) {
       const embed = new MessageEmbed()
         .setTitle("Error!")
         .setColor("RED")
-        .addFields({ name: "Message", value: "Ma chudao" });
+        .addFields({ name: "Message", value: "Couldn't parse the code!" });
       const user = await client.users.fetch(userId);
       await user.send({ embeds: [embed] });
     }
