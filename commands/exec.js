@@ -31,6 +31,26 @@ module.exports = {
             description: "run javascript code",
             value: "35",
           },
+          {
+            label: "C",
+            description: "run c code",
+            value: "11",
+          },
+          {
+            label: "C++",
+            description: "run c++ code",
+            value: "44",
+          },
+          {
+            label: "Node.js",
+            description: "run node.js code",
+            value: "56",
+          },
+          {
+            label: "Golang",
+            description: "run golang code",
+            value: "114",
+          },
         ]),
     );
 
