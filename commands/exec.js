@@ -1,7 +1,6 @@
 const wait = require("node:timers/promises").setTimeout;
 const {
   MessageActionRow,
-  MessageButton,
   MessageEmbed,
   MessageSelectMenu,
 } = require("discord.js");
@@ -47,7 +46,5 @@ module.exports = {
       embeds: [embed],
       components: [row],
     });
-
-    if (interaction.isSelectMenu()) console.log(interaction);
   },
 };

@@ -1,13 +1,7 @@
 // Require the necessary discord.js classes
 const wait = require("node:timers/promises").setTimeout;
 const fs = require("node:fs");
-const {
-  Client,
-  Collection,
-  Intents,
-  MessageEmbed,
-  Interaction,
-} = require("discord.js");
+const { Client, Collection, Intents, MessageEmbed } = require("discord.js");
 const config = require("./config");
 const { default: axios } = require("axios");
 require("dotenv").config();
@@ -99,6 +93,7 @@ const submitCode = async (code, userId, msg) => {
 
     selection = null;
   } catch (error) {
+    console.log(error);
     if (error.response.status === 404) {
       const err = await axios.get(
         `${endpoint}/submissions/${submissionID}/error?access_token=${access_token}`,
@@ -108,6 +103,13 @@ const submitCode = async (code, userId, msg) => {
         .setTitle("Error!")
         .setColor("RED")
         .addFields({ name: "Message", value: err.data });
+      const user = await client.users.fetch(userId);
+      await user.send({ embeds: [embed] });
+    } else if (error.response.data.error_code === 1101) {
+      const embed = new MessageEmbed()
+        .setTitle("Error!")
+        .setColor("RED")
+        .addFields({ name: "Message", value: "Ma chudao" });
       const user = await client.users.fetch(userId);
       await user.send({ embeds: [embed] });
     }
